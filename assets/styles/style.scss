@@ -1,0 +1,17 @@
+.slick-next {
+  right: 25px !important;
+  z-index: 100;
+}
+.slick-prev {
+  left: 25px !important;
+  z-index: 100;
+}
+.carousel_item {
+  &--550{
+    height: 550px !important;
+  }
+}
+
+*, html, body {
+  font-family: '微軟正黑體','Microsoft JhengHei' , Arial, Helvetica, sans-serif;
+}
