@@ -16,8 +16,12 @@ const actions = {
     await commit('SET_PAGE', { products, pagination });
     return Promise.resolve(true);
   },
-  async getAll() {
-    await this.$axios.$get(`/api/${apiPath}/products/all`);
+  async getAll({ commit }, category) {
+    console.log('fetching with Category...');
+    const { products } = await this.$axios.$get(`/api/${apiPath}/products/all`);
+
+    commit('SET_CATEGORY', { products, category });
+    return Promise.resolve(true);
   },
   async getDetail(context, { id }) {
     await this.$axios.$get(`/api/${apiPath}/product/${id}`);
@@ -28,6 +32,17 @@ const mutations = {
   async SET_PAGE(state, { products, pagination }) {
     state.pageProducts = products;
     state.pagination = pagination;
+  },
+  SET_CATEGORY(state, { products, category }) {
+    const filtered = products.filter((el) => el.category === category);
+    state.pageProducts = filtered;
+    state.pagination = {
+      total_pages: 1,
+      current_page: 1,
+      has_pre: false,
+      has_next: false,
+      category: null,
+    };
   },
 };
 

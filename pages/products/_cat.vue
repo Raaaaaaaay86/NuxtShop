@@ -55,6 +55,10 @@ export default {
     });
 
     useFetch(async () => {
+      if (route.value.params.cat) {
+        await store.dispatch('products/getAll', route.value.params.cat);
+        return;
+      }
       await store.dispatch('products/getPage', page);
     });
 
