@@ -1,4 +1,217 @@
 <template>
   <div>
+    <div class="my-8 grid grid-cols-2">
+      <div>
+        <img
+          class="mx-auto w-120 h-120 object-cover object-center"
+          :src="product.imageUrl"
+          :alt="`${product.title}${product.category}`"
+        >
+      </div>
+      <div class="flex flex-col justify-center">
+        <div>
+          <div class="flex items-baseline border-b-4 border-black">
+            <h1 class="text-6xl mr-2">
+              {{ product.title }}
+            </h1>
+            <span class="py-1 px-3 text-xs text-white bg-black rounded">
+              {{ product.category }}
+            </span>
+          </div>
+          <p class="mt-2 mb-4">
+            {{ product.description }}
+          </p>
+          <div class="mb-4">
+            <p class="mb-2 font-bold">
+              產品介紹:
+            </p>
+            <p>
+              {{ product.content }}
+            </p>
+          </div>
+          <div class="mb-4 flex items-baseline justify-between">
+            <span class="text-xl line-through">
+              原價: {{ product.originPrice }}
+            </span>
+            <span class="text-3xl">
+              售價:
+              <span class="font-bold">
+                {{ product.price }}
+              </span>
+            </span>
+          </div>
+          <div class="grid grid-cols-2">
+            <div>
+              <p class="mb-2">
+                選購商品數量
+              </p>
+              <select class="w-full py-2 border border-black">
+                <option>1 支</option>
+                <option>2 支</option>
+                <option>3 支</option>
+                <option>4 支</option>
+                <option>5 支</option>
+              </select>
+            </div>
+            <div class="flex items-end justify-end">
+              <sbutton>
+                加入購物車
+              </sbutton>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="text-center text-3xl border-b border-black">
+        產品評論
+      </p>
+      <div class="mb-4 mt-10 grid grid-cols-2">
+        <div class="flex items-center justify-center">
+          <div class="w-32 mr-4 h-32 p-4 flex flex-col justify-center items-center border-4 border-black">
+            <p class="text-4xl font-bold">
+              4.5
+            </p>
+            <p class="text-xl">
+              商品評價
+            </p>
+          </div>
+          <div>
+            <p class="text-xl">
+              2 個商品評論
+            </p>
+            <div class="text-warning">
+              <i class="fas fa-star" />
+              <i class="fas fa-star" />
+              <i class="fas fa-star" />
+              <i class="fas fa-star" />
+              <i class="fas fa-star-half-alt" />
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col justify-center items-center select-none">
+          <div class="flex items-center">
+            5<i class="fas fa-star text-warning ml-1 mr-4" />
+            <div class="bg-gray-600" style="width: 150px; height: 14px">
+              <div class="bg-warning h-full" style="width: 50%;" />
+            </div>
+          </div>
+          <div class="flex items-center">
+            4<i class="fas fa-star text-warning ml-1 mr-4" />
+            <div class="bg-gray-600" style="width: 150px; height: 14px">
+              <div class="bg-warning h-full" style="width: 50%;" />
+            </div>
+          </div>
+          <div class="flex items-center">
+            3<i class="fas fa-star text-warning ml-1 mr-4" />
+            <div class="bg-gray-600" style="width: 150px; height: 14px">
+              <div class="bg-warning h-full" style="width: 0%;" />
+            </div>
+          </div>
+          <div class="flex items-center">
+            2<i class="fas fa-star text-warning ml-1 mr-4" />
+            <div class="bg-gray-600" style="width: 150px; height: 14px">
+              <div class="bg-warning h-full" style="width: 0%;" />
+            </div>
+          </div>
+          <div class="flex items-center">
+            1<i class="fas fa-star text-warning ml-1 mr-4" />
+            <div class="bg-gray-600" style="width: 150px; height: 14px">
+              <div class="bg-warning h-full" style="width: 0%;" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="py-4 px-4 border-b border-black">
+        <div class="flex justify-between">
+          <p class="mb-1">
+            陳**
+          </p>
+          <p>2020-12-25</p>
+        </div>
+        <div class="mb-2 flex text-warning">
+          <i class="fas fa-star" />
+          <i class="fas fa-star" />
+          <i class="fas fa-star" />
+          <i class="fas fa-star" />
+          <i class="fas fa-star" />
+        </div>
+        <p>
+          好評！ 性價比高 品質很好 很滿意，發貨時間快
+        </p>
+      </div>
+      <div class="py-4 px-4">
+        <div class="flex justify-between">
+          <p class="mb-1">
+            楊**
+          </p>
+          <p>2020-12-31</p>
+        </div>
+        <div class="mb-2 flex text-warning">
+          <i class="fas fa-star" />
+          <i class="fas fa-star" />
+          <i class="fas fa-star" />
+          <i class="fas fa-star" />
+          <i class="fas fa-star-half-alt" />
+        </div>
+        <p>
+          讚! 十分有質感 ! 使用之後經常有人和我詢問是哪個品牌 !
+        </p>
+      </div>
+    </div>
+    <div class="pt-8">
+      <h6 class="mb-4 text-3xl text-center">
+        您可能會喜歡這些...
+      </h6>
+      <div class="grid grid-cols-4 gap-x-20">
+        <template>
+          <ProductCard v-for="product in randoms" :key="product.id" :product="product" small-mode />
+        </template>
+      </div>
+    </div>
   </div>
 </template>
+
+<script>
+/* eslint-disable */
+import ProductCard from '@/components/UI/client/ProductCard';
+import {
+  useContext,
+  useFetch,
+  useAsync,
+  computed,
+} from '@nuxtjs/composition-api';
+
+export default {
+  components: {
+    ProductCard,
+  },
+  setup() {
+    const { store, route, $axios } = useContext();
+    const { id } = route.value.params;
+    const product = computed(() => store.getters['products/detail']);
+
+    const randoms = useAsync(async () => {
+      const { products } = await $axios.$get('/api/raylin/products/all');
+      products.sort(() => Math.random() - 0.5);
+      return products.slice(0, 4);
+    });
+
+    // const product = useAsync(async () => {
+    //   // eslint-disable-next-line no-shadow
+    //   const res = await $axios.$get(`/api/raylin/product/${id}`);
+    //   console.log(res);
+    //   return res.product;
+    // });
+
+    useFetch(async () => {
+      await store.dispatch('products/getDetail', id);
+    });
+
+    return {
+      product,
+      randoms,
+    };
+  },
+};
+</script>

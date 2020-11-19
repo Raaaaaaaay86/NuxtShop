@@ -6,6 +6,8 @@ const apiPath = process.env.API_USER;
 const state = () => ({
   pageProducts: [],
   pagination: {},
+  all: [],
+  detail: {},
 });
 
 const actions = {
@@ -23,13 +25,17 @@ const actions = {
     commit('SET_CATEGORY', { products, category });
     return Promise.resolve(true);
   },
-  async getDetail(context, { id }) {
-    await this.$axios.$get(`/api/${apiPath}/product/${id}`);
+  async getDetail({ commit }, id) {
+    console.log('fetching detail...', id);
+    const { product } = await this.$axios.$get(`/api/${apiPath}/product/${id}`);
+
+    commit('SET_DETAIL', product);
+    return Promise.resolve(true);
   },
 };
 
 const mutations = {
-  async SET_PAGE(state, { products, pagination }) {
+  SET_PAGE(state, { products, pagination }) {
     state.pageProducts = products;
     state.pagination = pagination;
   },
@@ -44,6 +50,15 @@ const mutations = {
       category: null,
     };
   },
+  SET_DETAIL(state, product) {
+    state.detail = product;
+  },
+  RESET_DETAIL(state) {
+    state.detail = {};
+  },
+  SET_ALL(state, products) {
+    state.all = products;
+  },
 };
 
 const getters = {
@@ -52,6 +67,9 @@ const getters = {
   },
   pagination(state) {
     return state.pagination;
+  },
+  detail(state) {
+    return state.detail;
   },
 };
 

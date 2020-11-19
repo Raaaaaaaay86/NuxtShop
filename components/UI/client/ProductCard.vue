@@ -2,7 +2,8 @@
   <div>
     <div class="card__header select-none cursor-pointer">
       <div
-        class="p-4 h-88 flex justify-end bg-cover bg-center"
+        class="p-4 flex justify-end bg-cover bg-center bg-no-repeat"
+        :class="smallMode ? 'h-64' : 'h-88'"
         :style="{ 'background-image': 'url(' + product.imageUrl + ')' }"
       >
         <i
@@ -23,14 +24,14 @@
         </small>
       </div>
     </div>
-    <div class="flex flex-col items-center">
+    <div class="mb-8 flex flex-col items-center">
       <h6 class="font-bold mb-2">
         NT$ {{ product.originPrice }}
       </h6>
-      <span class="cursor-pointer">
+      <nuxt-link :to="`/product/${product.id}`" class="cursor-pointer">
         查看詳情
         <i class="fas fa-chevron-right" />
-      </span>
+      </nuxt-link>
     </div>
   </div>
 </template>
@@ -43,6 +44,10 @@ export default {
       required: true,
     },
     select: {
+      type: Boolean,
+      default: false,
+    },
+    smallMode: {
       type: Boolean,
       default: false,
     },
