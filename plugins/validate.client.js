@@ -1,11 +1,12 @@
+/* eslint-disable */
 import Vue from 'vue';
-import VeeValidate from 'vee-validate';
+import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required } from 'vee-validate/dist/rules';
 
-VeeValidate.Validator.extend('required', {
+extend('required', {
   ...required,
-  getMessage: (field) => `${field}不得為空`,
-});
+  message: '為必填欄位',
+})
 
-Vue.component('ValidationObserver', VeeValidate.ValidationObserver);
-Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
+Vue.component('ValidationObserver', ValidationObserver);
+Vue.component('ValidationProvider', ValidationProvider);

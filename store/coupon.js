@@ -8,7 +8,12 @@ const state = () => ({
 
 const actions = {
   async use(context, code) {
-    await this.$axios.$post(`/api/${apiPath}/cart`, { code });
+    const data = {
+      code,
+    };
+    const { success } = await this.$axios.$post(`/api/${apiPath}/coupon`, { data });
+    if (!success) return Promise.resolve(success);
+    return Promise.resolve(success);
   },
 };
 

@@ -1,7 +1,6 @@
 <template>
   <div>
-    <img class="mx-auto my-4 cursor-pointer" width="150" height="40" :src="require('@/assets/svgs/logo.svg')" alt="">
-    <div class="px-4 py-2 border-b border-black select-none">
+    <div class="px-4 py-2 border-b border-black bg-white select-none">
       <ul class="flex justify-between box-border">
         <nuxt-link to="/">
           <li class="px-4 py-2 cursor-pointer">
@@ -34,9 +33,44 @@
         <li class="px-4 py-2 cursor-pointer">
           關於我們
         </li>
-        <li class="px-4 py-2">
+        <li id="cart" class="px-4 py-2 relative">
           <i class="fas fa-caret-down" />
           <i class="fas fa-shopping-cart" />
+          <div id="dropdown-menu" class="hide dropdown-menu dropdown-menu--right bg-white border border-gray-400 shadow rounded">
+            <table class="w-full product-table">
+              <thead>
+                <tr class="text-xl">
+                  <th width="50" />
+                  <th>品名</th>
+                  <th>數量</th>
+                  <th>小計</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template>
+                  <tr v-for="cart in cartList" :key="cart.id">
+                    <td>
+                      <div
+                        class="w-10 h-10 flex items-center justify-center border border-black cursor-pointer"
+                        @click.prevent="remove(cart.id)"
+                      >
+                        <i class="fas fa-trash-alt" />
+                      </div>
+                    </td>
+                    <td>{{ cart.product.title }}</td>
+                    <td>{{ cart.qty }}{{ cart.product.unit }}</td>
+                    <td>$ {{ cart.final_total }}</td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+            <nuxt-link v-if="cartList.length === 0" to="/products" class="mt-auto mx-auto py-2 w-48 bg-black text-white text-center">
+              購物去
+            </nuxt-link>
+            <nuxt-link v-else to="/cart" class="mt-auto mx-auto py-2 w-48 bg-black text-white text-center">
+              結帳去
+            </nuxt-link>
+          </div>
         </li>
       </ul>
     </div>
@@ -44,11 +78,91 @@
 </template>
 
 <script>
-import { onMounted } from '@nuxtjs/composition-api';
+import {
+  computed,
+  onMounted,
+  useContext,
+  useFetch,
+} from '@nuxtjs/composition-api';
 
 export default {
   setup() {
-    onMounted(() => {});
+    const { store } = useContext();
+    const cartList = computed(() => store.getters['cart/list']);
+
+    useFetch(async () => {
+      await store.dispatch('cart/getList');
+    });
+
+    onMounted(() => {
+      const cartIcon = document.getElementById('cart');
+      const dropdownMenu = document.getElementById('dropdown-menu');
+
+      document.addEventListener('click', (e) => {
+        if (e.target.parentNode === cartIcon || e.target === cartIcon) {
+          dropdownMenu.classList.toggle('hide');
+        }
+
+        if (!cartIcon.contains(e.target)) {
+          dropdownMenu.classList.add('hide');
+        }
+      });
+    });
+
+    const remove = async (id) => {
+      store.commit('LOADING_TRUE');
+      await store.dispatch('cart/remove', id);
+      store.commit('LOADING_FALSE');
+    };
+
+    return {
+      cartList,
+      remove,
+    };
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  .dropdown-menu {
+    position: absolute;
+    overflow: auto;
+    width: 25rem;
+    height: 15rem;
+    padding: 0.5rem;
+    display: flex;;
+    flex-direction: column;
+    &--right {
+      top: 2.5rem;
+      right: 0;
+      left: auto;
+    }
+    &.hide {
+      display: none;
+    }
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      margin:0px 0 5px 0;
+    }
+    &::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 4px;
+      border-radius: 4px;
+      background: rgb(219,219,219);
+    }
+  };
+
+  .product-table {
+    thead tr th {
+      text-align: center;
+      padding: 1rem 0 1rem 0;
+    }
+    tbody tr td {
+      text-align: center;
+      padding: 1rem 0 1rem 0;
+    }
+  }
+</style>

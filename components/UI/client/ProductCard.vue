@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card__header select-none cursor-pointer">
+    <nuxt-link :to="`/product/${product.id}`" class="card__header select-none cursor-pointer">
       <div
         class="p-4 flex justify-end bg-cover bg-center bg-no-repeat"
         :class="smallMode ? 'h-64' : 'h-88'"
@@ -23,7 +23,7 @@
           {{ product.intro }}
         </small>
       </div>
-    </div>
+    </nuxt-link>
     <div class="mb-8 flex flex-col items-center">
       <h6 class="font-bold mb-2">
         NT$ {{ product.originPrice }}

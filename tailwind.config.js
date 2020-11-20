@@ -24,6 +24,7 @@ module.exports = {
   },
   variants: {
     borderWidth: ['responsive', 'hover'],
+    scale: ['hover'],
   },
   plugins: [],
 };

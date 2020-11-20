@@ -45,16 +45,27 @@
               <p class="mb-2">
                 選購商品數量
               </p>
-              <select class="w-full py-2 border border-black">
-                <option>1 支</option>
-                <option>2 支</option>
-                <option>3 支</option>
-                <option>4 支</option>
-                <option>5 支</option>
+              <select v-model="qty" class="w-full py-2 border border-black">
+                <option value="1">
+                  1 支
+                </option>
+                <option value="2">
+                  2 支
+                </option>
+                <option value="3">
+                  3 支
+                </option>
+                <option value="4">
+                  4 支
+                </option>
+                <option value="5">
+                  5 支
+                </option>
               </select>
             </div>
             <div class="flex items-end justify-end">
-              <sbutton>
+              <sbutton @click.native.prevent="addCart">
+                <i v-if="isLoading" class="fas fa-spinner fa-spin" />
                 加入購物車
               </sbutton>
             </div>
@@ -173,13 +184,12 @@
 </template>
 
 <script>
-/* eslint-disable */
 import ProductCard from '@/components/UI/client/ProductCard';
 import {
   useContext,
   useFetch,
-  useAsync,
   computed,
+  ref,
 } from '@nuxtjs/composition-api';
 
 export default {
@@ -187,30 +197,37 @@ export default {
     ProductCard,
   },
   setup() {
-    const { store, route, $axios } = useContext();
+    const { store, route } = useContext();
     const { id } = route.value.params;
     const product = computed(() => store.getters['products/detail']);
-
-    const randoms = useAsync(async () => {
-      const { products } = await $axios.$get('/api/raylin/products/all');
-      products.sort(() => Math.random() - 0.5);
-      return products.slice(0, 4);
-    });
-
-    // const product = useAsync(async () => {
-    //   // eslint-disable-next-line no-shadow
-    //   const res = await $axios.$get(`/api/raylin/product/${id}`);
-    //   console.log(res);
-    //   return res.product;
-    // });
+    const randoms = computed(() => store.getters['products/randoms']);
+    const isLoading = computed(() => store.getters.loading);
+    const qty = ref('1');
 
     useFetch(async () => {
+      store.commit('products/TEMPORARY_DETAIL', id);
+      await store.dispatch('products/getRandoms');
       await store.dispatch('products/getDetail', id);
     });
+
+    const addCart = async () => {
+      if (isLoading.value) return;
+      const data = {
+        product_id: product.value.id,
+        qty: qty.value,
+      };
+
+      store.commit('LOADING_TRUE');
+      await store.dispatch('cart/add', data);
+      store.commit('LOADING_FALSE');
+    };
 
     return {
       product,
       randoms,
+      qty,
+      addCart,
+      isLoading,
     };
   },
 };

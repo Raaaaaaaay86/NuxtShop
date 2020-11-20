@@ -6,8 +6,8 @@ const apiPath = process.env.API_USER;
 const state = () => ({
   pageProducts: [],
   pagination: {},
-  all: [],
   detail: {},
+  randoms: [],
 });
 
 const actions = {
@@ -31,6 +31,10 @@ const actions = {
 
     commit('SET_DETAIL', product);
     return Promise.resolve(true);
+  },
+  async getRandoms({ commit }) {
+    const { products } = await this.$axios.$get(`/api/${apiPath}/products/all`);
+    commit('SET_RANDOMS', products);
   },
 };
 
@@ -56,8 +60,14 @@ const mutations = {
   RESET_DETAIL(state) {
     state.detail = {};
   },
-  SET_ALL(state, products) {
-    state.all = products;
+  TEMPORARY_DETAIL(state, id) {
+    const product = state.pageProducts.filter((el) => el.id === id);
+    if (!product[0]) return;
+    [state.detail] = product;
+  },
+  SET_RANDOMS(state, products) {
+    products.sort(() => Math.random() - 0.5);
+    state.randoms = products.slice(0, 4);
   },
 };
 
@@ -70,6 +80,9 @@ const getters = {
   },
   detail(state) {
     return state.detail;
+  },
+  randoms(state) {
+    return state.randoms;
   },
 };
 
