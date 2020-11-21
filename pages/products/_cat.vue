@@ -36,8 +36,13 @@
 <script>
 import ProductCard from '@/components/UI/client/ProductCard';
 import Pagination from '@/components/UI/client/Pagination';
-/* eslint-disable */
-import { computed, useContext, useFetch, ref, watch, onUpdated } from '@nuxtjs/composition-api';
+import {
+  computed,
+  useContext,
+  useFetch,
+  watch,
+  onUpdated,
+} from '@nuxtjs/composition-api';
 
 export default {
   components: {
@@ -47,12 +52,8 @@ export default {
   setup() {
     const { store, route } = useContext();
     const { page } = route.value.query;
-    const products = computed(() => {
-      return store.getters['products/pageProducts'];
-    });
-    const pagination = computed(() => {
-      return store.getters['products/pagination'];
-    });
+    const products = computed(() => store.getters['products/pageProducts']);
+    const pagination = computed(() => store.getters['products/pagination']);
 
     useFetch(async () => {
       if (route.value.params.cat) {
@@ -62,10 +63,9 @@ export default {
       await store.dispatch('products/getPage', page);
     });
 
-    watch(route , (route) => {
-      const { page } = route.query;
-      store.dispatch('products/getPage', page);
-    })
+    watch(route, (newRoute) => {
+      store.dispatch('products/getPage', newRoute.query.page);
+    });
 
     onUpdated(() => {
       window.scrollTo(0, 562);

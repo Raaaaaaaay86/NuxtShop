@@ -87,7 +87,7 @@
           訂單資料
         </h1>
         <client-only>
-          <ValidationObserver v-slot="{ invalid }">
+          <ValidationObserver v-slot="{ invalid }" @submit.prevent="createOrder">
             <form class="grid grid-cols-12 gap-x-8">
               <ValidationProvider
                 v-slot="{ errors }"
@@ -135,11 +135,12 @@
               </ValidationProvider>
               <div class="col-span-12 flex flex-col mb-4">
                 <label for="ps" class="mb-2">備註</label>
-                <textarea name="ps" cols="30" rows="6" class="border border-black" />
+                <textarea v-model="message" name="ps" cols="30" rows="6" class="border border-black" />
               </div>
               <button
                 class="col-span-12 py-2 outline-none"
                 :class="invalid ? ' bg-gray-500 text-white' : 'bg-black text-white'"
+                @create.prevent="createOrder"
               >
                 送出訂單
               </button>
@@ -160,8 +161,9 @@ import {
 
 export default {
   setup() {
-    const { store } = useContext();
+    const { store, redirect } = useContext();
     const form = reactive({});
+    const message = ref('');
     const couponCode = ref('');
     const cartList = computed(() => store.getters['cart/list']);
     const totalPrice = computed(() => store.getters['cart/totalPrice']);
@@ -199,13 +201,28 @@ export default {
       store.dispatch('cart/getList');
     };
 
+    const createOrder = async () => {
+      const data = {
+        user: {
+          ...form,
+        },
+        message: message.value,
+      };
+      const response = await store.dispatch('order/create', data);
+      console.log(response);
+      if (!response) return false;
+      return redirect(`/order/${response.orderId}`);
+    };
+
     return {
       couponStatus,
+      createOrder,
       totalPrice,
       couponCode,
       couponMsg,
       useCoupon,
       cartList,
+      message,
       addCart,
       remove,
       form,
