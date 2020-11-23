@@ -209,7 +209,6 @@ export default {
         message: message.value,
       };
       const response = await store.dispatch('order/create', data);
-      console.log(response);
       if (!response) return false;
       return redirect(`/order/${response.orderId}`);
     };

@@ -72,13 +72,13 @@
 
 <script>
 import { computed, useContext } from '@nuxtjs/composition-api';
+import privateInfo from '@/middleware/privateInfo';
+import fetchOrderData from '@/middleware/fetchOrderData';
 
 export default {
-  async middleware({ store, route, redirect }) {
-    const orderId = route.params.id;
-    const success = await store.dispatch('order/getDetail', orderId);
-    if (!success) return redirect('/');
-    return true;
+  async middleware(context) {
+    privateInfo(context);
+    fetchOrderData(context, 'order/getDetail');
   },
   setup() {
     const { route, store } = useContext();
