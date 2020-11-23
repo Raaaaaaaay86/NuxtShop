@@ -46,7 +46,7 @@
                     </div>
                   </td>
                   <td :class=" cart.coupon ? 'text-green-700 font-bold' : '' ">
-                    {{ cart['final_total'] }}
+                    {{ cart.final_total | currency }}
                   </td>
                 </tr>
               </template>
@@ -56,7 +56,7 @@
                 <td colspan="4" class="text-right">
                   總金額:
                   <span class="font-bold text-xl">
-                    {{ totalPrice }}
+                    NT$ {{ totalPrice | currency }}
                   </span>
                 </td>
               </tr>
@@ -233,7 +233,10 @@ export default {
   .cart-table {
     thead tr th {
       text-align: center;
-      padding: 1rem 1rem 1rem 1rem;
+      padding: 1rem;
+      @media (max-width: 640px) {
+        padding: 1rem 0.5rem ;
+      }
     }
     tbody tr td {
       text-align: center;

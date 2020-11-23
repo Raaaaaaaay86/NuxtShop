@@ -25,13 +25,13 @@
               {{ info.qty }} {{ info.product.unit }}
             </td>
             <td class="text-right">
-              {{ info.final_total }}
+              NT$ {{ info.final_total | currency }}
             </td>
           </tr>
         </template>
         <tr id="orderTotal">
           <td colspan="3">
-            總金額: {{ orderDetail.total }}
+            總金額: NT$ {{ orderDetail.total | currency }}
           </td>
         </tr>
         <tr>
@@ -78,7 +78,7 @@ import fetchOrderData from '@/middleware/fetchOrderData';
 export default {
   async middleware(context) {
     privateInfo(context);
-    fetchOrderData(context, 'order/getDetail');
+    await fetchOrderData(context, 'order/getDetail');
   },
   setup() {
     const { route, store } = useContext();

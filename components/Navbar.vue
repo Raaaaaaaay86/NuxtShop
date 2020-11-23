@@ -2,7 +2,7 @@
   <div>
     <div class="px-4 py-2 border-b border-black bg-white select-none">
       <div class="flex items-center justify-between lg:hidden">
-        <div id="hamburger" class="px-4 py-1 border border-gray-500 rounded">
+        <div id="hamburger" class="px-4 pb-1 pt-2 border border-gray-500 rounded">
           <i class="fas fa-2x fa-bars" />
         </div>
         <img class="mx-auto my-4 cursor-pointer select-none" width="150" height="40" :src="require('@/assets/svgs/logo.svg')" alt="">
@@ -68,7 +68,7 @@
                     </td>
                     <td>{{ cart.product.title }}</td>
                     <td>{{ cart.qty }}{{ cart.product.unit }}</td>
-                    <td>$ {{ cart.final_total }}</td>
+                    <td>$ {{ cart.final_total | currency }}</td>
                   </tr>
                 </template>
               </tbody>

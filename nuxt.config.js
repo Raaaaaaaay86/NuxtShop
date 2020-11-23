@@ -24,6 +24,7 @@ export default {
   plugins: [
     '~/plugins/globalComponents.js',
     '~/plugins/validate.client.js',
+    '~/plugins/currencyFilter.js',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

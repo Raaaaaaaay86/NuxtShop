@@ -31,12 +31,12 @@
           </div>
           <div class="mb-4 flex items-baseline justify-between">
             <span class="text-xl line-through">
-              原價: {{ product.originPrice }}
+              原價: {{ product.originPrice | currency }}
             </span>
             <span class="text-3xl">
               售價:
               <span class="font-bold">
-                {{ product.price }}
+                {{ product.price | currency }}
               </span>
             </span>
           </div>
@@ -78,7 +78,7 @@
         產品評論
       </p>
       <div class="mb-4 mt-10 grid grid-cols-2">
-        <div class="flex items-center justify-center col-span-full lg:col-span-auto">
+        <div class="flex items-center justify-center col-span-full lg:col-span-1">
           <div class="w-32 mr-4 h-32 p-4 flex flex-col justify-center items-center border-4 border-black">
             <p class="text-4xl font-bold">
               4.5

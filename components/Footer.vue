@@ -15,7 +15,7 @@
         <p>展現出最自然的你 為你的魅力應援</p>
       </div>
     </div>
-    <div class="col-span-full flex items-center lg:col-span-auto">
+    <div class="col-span-full flex items-center lg:col-span-1">
       <div class="w-full flex justify-evenly">
         <ul>
           <li class="font-extrabold mb-2">
