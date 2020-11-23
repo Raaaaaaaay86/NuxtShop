@@ -7,9 +7,9 @@
       已成功付款
     </h1>
     <p class="mb-4">
-      感謝您在CLAIRE's消費，以下是訂單明細 ( 編號: {{ orderId }} )
+      感謝您在CLAIRE's消費，以下是訂單明細<br>( 編號: {{ orderId }} )
     </p>
-    <table class="w-7/12 mb-8">
+    <table class="w-10/12 lg:w-7/12 mb-8">
       <thead>
         <th>產品名稱</th>
         <th>數量</th>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <table id="orderTable" class="w-9/12 mx-auto mt-10 mb-4 select-none">
+      <table id="orderTable" class="w-11/12 lg:w-9/12 mx-auto mt-10 mb-4 select-none">
         <thead>
           <tr>
             <th>品名</th>

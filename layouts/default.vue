@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto">
-    <img class="mx-auto my-4 cursor-pointer" width="150" height="40" :src="require('@/assets/svgs/logo.svg')" alt="">
-    <Navbar class="sticky top-0 z-50" />
+    <img class="hidden lg:block mx-auto my-4 cursor-pointer" width="150" height="40" :src="require('@/assets/svgs/logo.svg')" alt="">
+    <Navbar class="sticky top-0" style="z-index: 200;" />
     <Nuxt />
     <Footer />
   </div>

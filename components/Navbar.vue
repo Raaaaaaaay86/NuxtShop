@@ -1,7 +1,16 @@
 <template>
   <div>
     <div class="px-4 py-2 border-b border-black bg-white select-none">
-      <ul class="flex justify-between box-border">
+      <div class="flex items-center justify-between lg:hidden">
+        <div id="hamburger" class="px-4 py-1 border border-gray-500 rounded">
+          <i class="fas fa-2x fa-bars" />
+        </div>
+        <img class="mx-auto my-4 cursor-pointer select-none" width="150" height="40" :src="require('@/assets/svgs/logo.svg')" alt="">
+        <nuxt-link class="cursor-pointer" to="/cart">
+          <i class="fas fa-2x fa-shopping-cart" />
+        </nuxt-link>
+      </div>
+      <ul id="collapse-menu" class="lg:h-auto lg:flex justify-between box-border overflow-hidden lg:overflow-visible">
         <nuxt-link to="/">
           <li class="px-4 py-2 cursor-pointer">
             首頁
@@ -33,7 +42,7 @@
         <li class="px-4 py-2 cursor-pointer">
           關於我們
         </li>
-        <li id="cart" class="px-4 py-2 relative">
+        <li id="cart" class="hidden lg:block px-4 py-2 relative cursor-pointer">
           <i class="fas fa-caret-down" />
           <i class="fas fa-shopping-cart" />
           <div id="dropdown-menu" class="hide dropdown-menu dropdown-menu--right bg-white border border-gray-400 shadow rounded">
@@ -82,7 +91,6 @@ import {
   computed,
   onMounted,
   useContext,
-  useFetch,
 } from '@nuxtjs/composition-api';
 
 export default {
@@ -90,13 +98,11 @@ export default {
     const { store } = useContext();
     const cartList = computed(() => store.getters['cart/list']);
 
-    useFetch(async () => {
-      await store.dispatch('cart/getList');
-    });
-
     onMounted(() => {
       const cartIcon = document.getElementById('cart');
       const dropdownMenu = document.getElementById('dropdown-menu');
+      const hamburger = document.getElementById('hamburger');
+      const collapseMenu = document.getElementById('collapse-menu');
 
       document.addEventListener('click', (e) => {
         if (e.target.parentNode === cartIcon || e.target === cartIcon) {
@@ -106,6 +112,10 @@ export default {
         if (!cartIcon.contains(e.target)) {
           dropdownMenu.classList.add('hide');
         }
+      });
+
+      hamburger.addEventListener('click', () => {
+        collapseMenu.classList.toggle('show');
       });
     });
 
@@ -165,4 +175,15 @@ export default {
       padding: 1rem 0 1rem 0;
     }
   }
+
+  @media (max-width: 1024px) {
+    #collapse-menu {
+      height: 0;
+      transition: all .6s ease;
+      &.show {
+        height: 17rem;
+      }
+    }
+  }
+
 </style>

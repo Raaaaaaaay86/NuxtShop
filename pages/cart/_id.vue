@@ -1,7 +1,7 @@
 <template>
   <div class="py-4">
-    <div class="grid grid-cols-2 gap-x-8 px-8">
-      <div>
+    <div class="px-3 grid grid-cols-1 gap-x-8 lg:px-8 lg:grid-cols-2">
+      <div class="mb-8 lg:mb-0">
         <client-only>
           <table class="cart-table w-full p-4 border border-black">
             <thead>
@@ -36,7 +36,7 @@
                       >
                         -
                       </div>
-                      {{ cart.qty }}{{ cart.product.unit }}
+                      {{ cart.qty }}
                       <div
                         class="calcu-btn ml-4 w-6 h-6 font-bold flex items-center justify-center border border-black select-none cursor-pointer"
                         @click.prevent="addCart(cart.product_id, 1)"
@@ -82,13 +82,13 @@
           {{ couponMsg }}
         </small>
       </div>
-      <div class="pt-2 px-8 pb-4 border border-black">
+      <div class="pt-2 px-4 lg:px-8 pb-4 border border-black">
         <h1 class="text-4xl font-bold text-center">
           訂單資料
         </h1>
         <client-only>
           <ValidationObserver v-slot="{ invalid }" @submit.prevent="createOrder">
-            <form class="grid grid-cols-12 gap-x-8">
+            <form class="grid grid-cols-12 lg:gap-x-8">
               <ValidationProvider
                 v-slot="{ errors }"
                 class="col-span-12 flex flex-col mb-4"
@@ -102,7 +102,7 @@
               </ValidationProvider>
               <ValidationProvider
                 v-slot="{ errors }"
-                class="col-span-6 flex flex-col mb-4"
+                class="mr-1 mb-4 col-span-6 flex flex-col lg:mr-0"
                 rules="required"
               >
                 <label for="name" class="mb-2">收件人姓名*</label>
@@ -113,7 +113,7 @@
               </ValidationProvider>
               <ValidationProvider
                 v-slot="{ errors }"
-                class="col-span-6 flex flex-col mb-4"
+                class="ml-1 mb-4 col-span-6 flex flex-col lg:ml-0"
                 rules="required"
               >
                 <label for="tel" class="mb-2">收件人電話*</label>
@@ -234,11 +234,17 @@ export default {
   .cart-table {
     thead tr th {
       text-align: center;
-      padding: 1rem 0 1rem 1rem;
+      padding: 1rem 1rem 1rem 1rem;
     }
     tbody tr td {
       text-align: center;
-      padding: 1rem 0 1rem 1rem;
+      padding: 1rem 1rem 1rem 1rem;
+      &:last-of-type {
+        text-align: right;
+      }
+      @media (max-width: 640px) {
+        padding: 0.5rem;
+      }
     }
     tfoot tr td {
       padding: 1rem 1rem 1rem;

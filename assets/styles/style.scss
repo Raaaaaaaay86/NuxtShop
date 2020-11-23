@@ -6,12 +6,18 @@
   left: 25px !important;
   z-index: 100;
 }
-.carousel_item {
-  &--550{
-    height: 550px !important;
-  }
-}
 
 *, html, body {
   font-family: '微軟正黑體','Microsoft JhengHei' , Arial, Helvetica, sans-serif;
+}
+
+.carousel_item {
+  height: 550px !important;
+@media (max-width: 640px) {
+  height: 420px !important;
+}
+}
+
+.flex-important {
+  display: flex !important;
 }

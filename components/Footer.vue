@@ -1,6 +1,6 @@
 <template>
   <div class="h-64 grid grid-cols-2 border-t border-black">
-    <div class="flex justify-evenly items-center">
+    <div class="hidden lg:flex justify-evenly items-center">
       <div>
         <img width="150" :src="require('@/assets/svgs/logo.svg')" alt="">
         <p class="text-xs font-bold text-center select-none">
@@ -15,7 +15,7 @@
         <p>展現出最自然的你 為你的魅力應援</p>
       </div>
     </div>
-    <div class="flex items-center">
+    <div class="col-span-full flex items-center lg:col-span-auto">
       <div class="w-full flex justify-evenly">
         <ul>
           <li class="font-extrabold mb-2">

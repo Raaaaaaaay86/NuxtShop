@@ -2,7 +2,7 @@
   <div>
     <!-- Banner -->
     <div
-      class="p-20 carousel_item--550 bg-center bg-cover"
+      class="px-3 pt-8 carousel_item bg-center bg-cover lg:p-20"
       :style="{ 'background-image': 'url(' + require('@/assets/imgs/banner1.jpg') + ')' }"
     >
       <div class="flex flex-col items-start">
@@ -18,7 +18,7 @@
       </div>
     </div>
     <!-- Prodcts Area -->
-    <div class="my-4 grid grid-cols-3 gap-x-20 gap-y-20">
+    <div class="my-4 p-4 grid grid-cols-2 lg:grid-cols-3 lg:gap-x-20 gap-y-10 lg:gap-y-20">
       <template>
         <ProductCard
           v-for="product in products"
@@ -39,7 +39,6 @@ import Pagination from '@/components/UI/client/Pagination';
 import {
   computed,
   useContext,
-  useFetch,
   watch,
   onUpdated,
 } from '@nuxtjs/composition-api';
@@ -49,19 +48,17 @@ export default {
     ProductCard,
     Pagination,
   },
+  async middleware({ route, store }) {
+    if (route.params.cat) {
+      await store.dispatch('products/getAll', route.params.cat);
+      return;
+    }
+    await store.dispatch('products/getPage', route.query.page);
+  },
   setup() {
     const { store, route } = useContext();
-    const { page } = route.value.query;
     const products = computed(() => store.getters['products/pageProducts']);
     const pagination = computed(() => store.getters['products/pagination']);
-
-    useFetch(async () => {
-      if (route.value.params.cat) {
-        await store.dispatch('products/getAll', route.value.params.cat);
-        return;
-      }
-      await store.dispatch('products/getPage', page);
-    });
 
     watch(route, (newRoute) => {
       store.dispatch('products/getPage', newRoute.query.page);

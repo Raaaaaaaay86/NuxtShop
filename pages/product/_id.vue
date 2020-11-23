@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div class="my-8 grid grid-cols-2">
-      <div>
+    <div class="my-8 px-3 grid grid-cols-2">
+      <div class="col-span-full lg:col-span-1">
         <img
-          class="mx-auto w-120 h-120 object-cover object-center"
+          class="mx-auto w-64 h-64 object-cover object-center lg:w-120 lg:h-120"
           :src="product.imageUrl"
           :alt="`${product.title}${product.category}`"
         >
       </div>
-      <div class="flex flex-col justify-center">
+      <div class="flex flex-col justify-center col-span-full lg:col-span-1">
         <div>
           <div class="flex items-baseline border-b-4 border-black">
             <h1 class="text-6xl mr-2">
@@ -78,7 +78,7 @@
         產品評論
       </p>
       <div class="mb-4 mt-10 grid grid-cols-2">
-        <div class="flex items-center justify-center">
+        <div class="flex items-center justify-center col-span-full lg:col-span-auto">
           <div class="w-32 mr-4 h-32 p-4 flex flex-col justify-center items-center border-4 border-black">
             <p class="text-4xl font-bold">
               4.5
@@ -100,7 +100,7 @@
             </div>
           </div>
         </div>
-        <div class="flex flex-col justify-center items-center select-none">
+        <div class="hidden lg:flex flex-col justify-center items-center select-none">
           <div class="flex items-center">
             5<i class="fas fa-star text-warning ml-1 mr-4" />
             <div class="bg-gray-600" style="width: 150px; height: 14px">
@@ -174,7 +174,7 @@
       <h6 class="mb-4 text-3xl text-center">
         您可能會喜歡這些...
       </h6>
-      <div class="grid grid-cols-4 gap-x-20">
+      <div class="px-3 grid grid-cols-2 gap-4 lg:gap-x-20 lg:grid-cols-4">
         <template>
           <ProductCard v-for="product in randoms" :key="product.id" :product="product" small-mode />
         </template>
@@ -187,7 +187,6 @@
 import ProductCard from '@/components/UI/client/ProductCard';
 import {
   useContext,
-  useFetch,
   computed,
   ref,
 } from '@nuxtjs/composition-api';
@@ -196,19 +195,19 @@ export default {
   components: {
     ProductCard,
   },
+  async middleware({ store, route }) {
+    const { id } = route.params;
+
+    store.commit('products/TEMPORARY_DETAIL', id);
+    await store.dispatch('products/getRandoms');
+    await store.dispatch('products/getDetail', id);
+  },
   setup() {
-    const { store, route } = useContext();
-    const { id } = route.value.params;
+    const { store } = useContext();
     const product = computed(() => store.getters['products/detail']);
     const randoms = computed(() => store.getters['products/randoms']);
     const isLoading = computed(() => store.getters.loading);
     const qty = ref('1');
-
-    useFetch(async () => {
-      store.commit('products/TEMPORARY_DETAIL', id);
-      await store.dispatch('products/getRandoms');
-      await store.dispatch('products/getDetail', id);
-    });
 
     const addCart = async () => {
       if (isLoading.value) return;
