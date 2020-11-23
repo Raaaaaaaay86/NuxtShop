@@ -11,7 +11,7 @@
       <div class="flex flex-col justify-center col-span-full lg:col-span-1">
         <div>
           <div class="flex items-baseline border-b-4 border-black">
-            <h1 class="text-6xl mr-2">
+            <h1 class="text-4xl lg:text-5xl xl:text-6xl mr-2">
               {{ product.title }}
             </h1>
             <span class="py-1 px-3 text-xs text-white bg-black rounded">
