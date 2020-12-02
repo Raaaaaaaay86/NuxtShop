@@ -11,31 +11,31 @@
         </nuxt-link>
       </div>
       <ul id="collapse-menu" class="lg:h-auto lg:flex justify-between box-border overflow-hidden lg:overflow-visible">
-        <nuxt-link to="/">
-          <li class="px-4 py-2 cursor-pointer">
+        <li class="px-4 py-2 cursor-pointer">
+          <nuxt-link to="/">
             首頁
-          </li>
-        </nuxt-link>
-        <nuxt-link to="/products">
-          <li class="px-4 py-2 cursor-pointer">
+          </nuxt-link>
+        </li>
+        <li class="px-4 py-2 cursor-pointer">
+          <nuxt-link to="/products">
             所有商品
-          </li>
-        </nuxt-link>
-        <nuxt-link to="/products/lip">
-          <li class="px-4 py-2 cursor-pointer">
+          </nuxt-link>
+        </li>
+        <li class="px-4 py-2 cursor-pointer">
+          <nuxt-link to="/products/lip">
             唇彩
-          </li>
-        </nuxt-link>
-        <nuxt-link to="/products/nail">
-          <li class="px-4 py-2 cursor-pointer">
+          </nuxt-link>
+        </li>
+        <li class="px-4 py-2 cursor-pointer">
+          <nuxt-link to="/products/nail">
             指彩
-          </li>
-        </nuxt-link>
-        <nuxt-link to="/products/blush">
-          <li class="px-4 py-2 cursor-pointer">
+          </nuxt-link>
+        </li>
+        <li class="px-4 py-2 cursor-pointer">
+          <nuxt-link to="/products/blush">
             腮紅
-          </li>
-        </nuxt-link>
+          </nuxt-link>
+        </li>
         <li class="px-4 py-2 cursor-pointer">
           專櫃據點
         </li>

@@ -13,6 +13,7 @@
         <p>產品之間靈活搭配，勾劃出妳獨特的另一面</p>
         <p>用最懂妳的彩粧，畫出最自在的粧感</p>
         <p>展現出最自然的你 為你的魅力應援</p>
+        <p>*(此為練習作品無商業行為)</p>
       </div>
     </div>
     <div class="col-span-full flex items-center lg:col-span-1">

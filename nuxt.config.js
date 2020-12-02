@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -37,6 +38,7 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxtjs/composition-api',
+    '@nuxtjs/pwa',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -51,10 +53,6 @@ export default {
     credentials: true,
   },
 
-  // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
-  },
-
   env: {
     API_USER: 'raylin',
   },
@@ -62,5 +60,50 @@ export default {
   server: {
     port: 3000,
     host: '0.0.0.0',
+  },
+
+  pwa: {
+    manifest: {
+      name: 'Claire\'s - Since 1997 ',
+      short_name: 'Claire\'s',
+      start_url: '/',
+      display: 'standalone',
+      orientation: 'portrait-primary',
+      background_color: '#fff',
+      theme_color: '#fff',
+      description: 'Claire\'s 滿足你對美麗美麗的需求',
+      dir: 'ltr',
+      lang: 'zh-TW',
+    },
+    workbox: {
+      runtimeCaching: [
+        {
+          urlPattern: 'https://storage.googleapis.com/vue-course-api.appspot.com/.*',
+          handler: 'StaleWhileRevalidate',
+          strategyOptions: {
+            cacheName: 'product-imgs',
+          },
+          strategyPlugins: [{
+            use: 'Expiration',
+            config: {
+              maxAgeSeconds: 60 * 60 * 24,
+            },
+          }],
+        },
+        {
+          urlPattern: 'https://ka-f.fontawesome.com/.*',
+          handler: 'StaleWhileRevalidate',
+          strategyOptions: {
+            cacheName: 'font-awsome',
+            strategyPlugins: [{
+              use: 'Expiration',
+              config: {
+                maxAgeSeconds: 60 * 60 * 24,
+              },
+            }],
+          },
+        },
+      ],
+    },
   },
 };

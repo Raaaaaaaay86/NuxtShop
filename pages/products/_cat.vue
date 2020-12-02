@@ -50,10 +50,12 @@ export default {
   },
   async middleware({ route, store }) {
     if (route.params.cat) {
-      await store.dispatch('products/getAll', route.params.cat);
-      return;
+      if (process.server) await store.dispatch('products/getAll', route.params.cat);
+      store.dispatch('products/getAll', route.params.cat);
+    } else {
+      if (process.server) await store.dispatch('products/getPage', route.query.page);
+      store.dispatch('products/getPage', route.query.page);
     }
-    await store.dispatch('products/getPage', route.query.page);
   },
   setup() {
     const { store, route } = useContext();

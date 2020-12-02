@@ -1,7 +1,18 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
+import { openDB } from 'idb';
 
 const apiPath = process.env.API_USER;
+let productDBPromise;
+
+if (!process.server) {
+  productDBPromise = openDB('products-store', 1, {
+    upgrade(db) {
+      db.createObjectStore('products');
+      db.createObjectStore('all-products');
+    },
+  });
+}
 
 const state = () => ({
   pageProducts: [],
@@ -11,22 +22,57 @@ const state = () => ({
 });
 
 const actions = {
-  async getPage({ commit }, page = 1) {
-    console.log('fetching...');
-    const { products, pagination } = await this.$axios.$get(`/api/${apiPath}/products?page=${page}`);
+  async getPage({ commit }, page = '1') {
+    if (!process.server) { // 先優先以 indexedDB 渲染
+      const tx = (await productDBPromise).transaction('products', 'readonly');
+      const response = await tx.store.get(page);
+      if (response) {
+        const { products, pagination } = response;
+        commit('SET_PAGE', { products, pagination });
+      }
+    }
 
-    await commit('SET_PAGE', { products, pagination });
-    return Promise.resolve(true);
+    try { // 背景繼續 fetch 作業
+      const response = await this.$axios.$get(`/api/${apiPath}/products?page=${page}`);
+      const { products, pagination } = response;
+
+      if (!process.server) { // 每次 fetch 即更新 indexedDB
+        const tx = (await productDBPromise).transaction('products', 'readwrite');
+        await tx.store.put(response, page);
+        await tx.done;
+      }
+
+      await commit('SET_PAGE', { products, pagination }); // 更新 IndexedDB 後，再更新渲染畫面
+      return Promise.resolve(true);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   },
   async getAll({ commit }, category) {
-    console.log('fetching with Category...');
-    const { products } = await this.$axios.$get(`/api/${apiPath}/products/all`);
+    if (!process.server) {
+      const tx = (await productDBPromise).transaction('all-products', 'readonly');
+      const response = await tx.store.get('all');
+      if (response) {
+        commit('SET_CATEGORY', { products: response, category });
+      }
+    }
 
-    commit('SET_CATEGORY', { products, category });
-    return Promise.resolve(true);
+    try {
+      const { products } = await this.$axios.$get(`/api/${apiPath}/products/all`);
+
+      if (!process.server) {
+        const tx = (await productDBPromise).transaction('all-products', 'readwrite');
+        await tx.store.put(products, 'all');
+        await tx.done;
+      }
+
+      commit('SET_CATEGORY', { products, category });
+      return Promise.resolve(true);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   },
   async getDetail({ commit }, id) {
-    console.log('fetching detail...', id);
     const { product } = await this.$axios.$get(`/api/${apiPath}/product/${id}`);
 
     commit('SET_DETAIL', product);
