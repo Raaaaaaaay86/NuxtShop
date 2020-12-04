@@ -39,9 +39,11 @@
         <li class="px-4 py-2 cursor-pointer">
           專櫃據點
         </li>
-        <li class="px-4 py-2 cursor-pointer">
-          關於我們
-        </li>
+        <nuxt-link to="/about">
+          <li class="px-4 py-2 cursor-pointer">
+            關於我們
+          </li>
+        </nuxt-link>
         <li id="cart" class="hidden lg:block px-4 py-2 relative cursor-pointer">
           <i class="fas fa-caret-down" />
           <i class="fas fa-shopping-cart" />
