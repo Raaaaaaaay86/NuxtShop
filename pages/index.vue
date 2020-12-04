@@ -13,7 +13,7 @@
     <!--Section 1-->
     <div class="mb-20">
       <div class="flex flex-wrap">
-        <img class="w-full lg:w-1/2 object-cover object-center" style="height: 45vh" :src="require('@/assets/imgs/head01.jpg')" alt="">
+        <img class="w-full lg:w-1/2 object-cover object-center" style="height: 20rem" :src="require('@/assets/imgs/head01.jpg')" alt="">
         <div class="my-8 lg:my-0 w-full lg:w-1/2 flex flex-col items-center justify-center">
           <p class="text-4xl font-bold">
             CLAIRE's代表的是...
@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="flex lg:flex-row-reverse flex-wrap">
-        <img class="w-full lg:w-1/2 object-cover object-center" style="height: 45vh" :src="require('@/assets/imgs/head02.jpg')" alt="">
+        <img class="w-full lg:w-1/2 object-cover object-center" style="height: 20rem" :src="require('@/assets/imgs/head02.jpg')" alt="">
         <div class="my-8 lg:my-0 w-full lg:w-1/2 flex flex-col items-center justify-center">
           <p class="text-4xl font-bold">
             CLAIRE's 的精神宗旨

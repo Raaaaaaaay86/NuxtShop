@@ -1,5 +1,6 @@
 <template>
   <div class="py-4">
+    <!--Section 1-->
     <div class="px-4 grid grid-cols-1 md:grid-cols-2 gap-x-8">
       <div class="flex flex-col items-center">
         <img class="h-120 lg:h-162 w-full object-cover" :src="require('@/assets/imgs/about0.jpg')" alt="">
@@ -26,6 +27,7 @@
         </div>
       </div>
     </div>
+    <!--Section 2-->
     <div class="grid-imageWall mt-8 w-full">
       <div class="col-start-1 col-end-3 row-start-1 row-span-2">
         <img class="h-full w-full object-cover object-top" :src="require('@/assets/imgs/aboutWall0.jpg')" alt="">
