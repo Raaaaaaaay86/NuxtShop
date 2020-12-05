@@ -5,42 +5,44 @@
         <div id="hamburger" class="px-4 pb-1 pt-2 border border-gray-500 rounded">
           <i class="fas fa-2x fa-bars" />
         </div>
-        <img class="mx-auto my-4 cursor-pointer select-none" width="150" height="40" :src="require('@/assets/svgs/logo.svg')" alt="">
-        <nuxt-link class="cursor-pointer" to="/cart">
+        <nuxt-link to="/">
+          <img class="mx-auto my-4 cursor-pointer select-none" width="150" height="40" :src="require('@/assets/svgs/logo.svg')" alt="">
+        </nuxt-link>
+        <nuxt-link class="cursor-pointer" :to="cartList.length === 0 ? '/products' : '/cart'">
           <i class="fas fa-2x fa-shopping-cart" />
         </nuxt-link>
       </div>
       <ul id="collapse-menu" class="lg:h-auto lg:flex justify-between box-border overflow-hidden lg:overflow-visible">
         <nuxt-link to="/">
-          <li class="px-4 py-2 cursor-pointer">
+          <li class="nav-item px-4 py-2 cursor-pointer">
             首頁
           </li>
         </nuxt-link>
         <nuxt-link to="/products">
-          <li class="px-4 py-2 cursor-pointer">
+          <li class="nav-item px-4 py-2 cursor-pointer">
             所有商品
           </li>
         </nuxt-link>
         <nuxt-link to="/products/lip">
-          <li class="px-4 py-2 cursor-pointer">
+          <li class="nav-item px-4 py-2 cursor-pointer">
             唇彩
           </li>
         </nuxt-link>
         <nuxt-link to="/products/nail">
-          <li class="px-4 py-2 cursor-pointer">
+          <li class="nav-item px-4 py-2 cursor-pointer">
             指彩
           </li>
         </nuxt-link>
         <nuxt-link to="/products/blush">
-          <li class="px-4 py-2 cursor-pointer">
+          <li class="nav-item px-4 py-2 cursor-pointer">
             腮紅
           </li>
         </nuxt-link>
-        <li class="px-4 py-2 cursor-pointer">
+        <li class="nav-item px-4 py-2 cursor-pointer">
           專櫃據點
         </li>
         <nuxt-link to="/about">
-          <li class="px-4 py-2 cursor-pointer">
+          <li class="nav-item px-4 py-2 cursor-pointer">
             關於我們
           </li>
         </nuxt-link>
@@ -113,6 +115,14 @@ export default {
 
         if (!cartIcon.contains(e.target)) {
           dropdownMenu.classList.add('hide');
+        }
+
+        if (e.target.classList.contains('nav-item')) {
+          collapseMenu.classList.remove('show');
+        }
+
+        if (collapseMenu.classList.contains('show') && !collapseMenu.contains(e.target) && !hamburger.contains(e.target)) {
+          collapseMenu.classList.remove('show');
         }
       });
 
