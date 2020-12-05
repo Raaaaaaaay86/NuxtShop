@@ -9,6 +9,8 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
+      { href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap', rel: 'stylesheet' },
     ],
     script: [
       { src: 'https://kit.fontawesome.com/1af9f69884.js', crossorigin: 'anonymous' },

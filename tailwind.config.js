@@ -22,7 +22,17 @@ module.exports = {
         120: '30rem',
       },
       gridTemplateRows: {
+        '60-1': 'repeat(1, minmax(0, 15rem))',
+        '81-1': 'repeat(1, minmax(0, 20rem))',
+        '60-2': 'repeat(2, minmax(0, 15rem))',
         '81-2': 'repeat(2, minmax(0, 20rem))',
+        '60-3': 'repeat(3, minmax(0, 15rem))',
+        '81-3': 'repeat(3, minmax(0, 20rem))',
+      },
+      fontSize: {
+        '8xl': ['6rem', {
+          lineHeight: '1',
+        }],
       },
     },
   },
