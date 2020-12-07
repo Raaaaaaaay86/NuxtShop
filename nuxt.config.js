@@ -52,6 +52,7 @@ export default {
   // https://us-central1-shop-admin-3bc87.cloudfunctions.net/app
   axios: {
     baseURL: 'https://us-central1-shop-admin-3bc87.cloudfunctions.net/app',
+    // baseURL: 'http://localhost:5001/shop-admin-3bc87/us-central1/app',
     credentials: true,
   },
 

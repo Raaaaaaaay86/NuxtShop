@@ -46,7 +46,7 @@
             關於我們
           </li>
         </nuxt-link>
-        <li id="cart" class="hidden lg:block px-4 py-2 relative cursor-pointer">
+        <li id="cart" class="hidden lg:block px-4 py-2 relative">
           <i class="fas fa-caret-down" />
           <i class="fas fa-shopping-cart" />
           <div id="dropdown-menu" class="hide dropdown-menu dropdown-menu--right bg-white border border-gray-400 shadow rounded">
@@ -64,7 +64,7 @@
                   <tr v-for="cart in cartList" :key="cart.id">
                     <td>
                       <div
-                        class="w-10 h-10 flex items-center justify-center border border-black cursor-pointer"
+                        class="w-10 h-10 flex items-center justify-center border border-black cursor-pointer hover:bg-black hover:text-white"
                         @click.prevent="remove(cart.id)"
                       >
                         <i class="fas fa-trash-alt" />
@@ -72,7 +72,7 @@
                     </td>
                     <td>{{ cart.product.title }}</td>
                     <td>{{ cart.qty }}{{ cart.product.unit }}</td>
-                    <td>$ {{ cart.final_total | currency }}</td>
+                    <td>$ {{ cart.product.price * cart.qty | currency }}</td>
                   </tr>
                 </template>
               </tbody>
