@@ -1,8 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
 
-const apiPath = process.env.API_USER;
-
 const state = () => ({
   pageProducts: [],
   pagination: {},
@@ -11,29 +9,18 @@ const state = () => ({
 });
 
 const actions = {
-  async getPage({ commit }, page = 1) {
-    console.log('fetching...');
-    const { products, pagination } = await this.$axios.$get(`/api/${apiPath}/products?page=${page}`);
-
+  async getPage({ commit }, { page, cat }) {
+    const { products, pagination } = await this.$axios.$get(`/products?cat=${cat}&page=${page}`);
     await commit('SET_PAGE', { products, pagination });
     return Promise.resolve(true);
   },
-  async getAll({ commit }, category) {
-    console.log('fetching with Category...');
-    const { products } = await this.$axios.$get(`/api/${apiPath}/products/all`);
-
-    commit('SET_CATEGORY', { products, category });
-    return Promise.resolve(true);
-  },
   async getDetail({ commit }, id) {
-    console.log('fetching detail...', id);
-    const { product } = await this.$axios.$get(`/api/${apiPath}/product/${id}`);
-
+    const { product } = await this.$axios.$get(`/products/${id}`);
     commit('SET_DETAIL', product);
     return Promise.resolve(true);
   },
   async getRandoms({ commit }) {
-    const { products } = await this.$axios.$get(`/api/${apiPath}/products/all`);
+    const { products } = await this.$axios.$get('/products/all');
     commit('SET_RANDOMS', products);
   },
 };
@@ -42,17 +29,6 @@ const mutations = {
   SET_PAGE(state, { products, pagination }) {
     state.pageProducts = products;
     state.pagination = pagination;
-  },
-  SET_CATEGORY(state, { products, category }) {
-    const filtered = products.filter((el) => el.category === category);
-    state.pageProducts = filtered;
-    state.pagination = {
-      total_pages: 1,
-      current_page: 1,
-      has_pre: false,
-      has_next: false,
-      category: null,
-    };
   },
   SET_DETAIL(state, product) {
     state.detail = product;

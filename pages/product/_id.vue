@@ -31,7 +31,7 @@
           </div>
           <div class="mb-4 flex items-baseline justify-between">
             <span class="text-xl line-through">
-              原價: {{ product.originPrice | currency }}
+              原價: {{ product.origin_price | currency }}
             </span>
             <span class="text-3xl">
               售價:

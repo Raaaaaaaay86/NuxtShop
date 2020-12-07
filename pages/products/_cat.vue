@@ -49,11 +49,10 @@ export default {
     Pagination,
   },
   async middleware({ route, store }) {
-    if (route.params.cat) {
-      await store.dispatch('products/getAll', route.params.cat);
-      return;
-    }
-    await store.dispatch('products/getPage', route.query.page);
+    const { cat } = route.params;
+    let { page } = route.query;
+    if (!page) page = 1;
+    await store.dispatch('products/getPage', { cat, page });
   },
   setup() {
     const { store, route } = useContext();
@@ -61,7 +60,10 @@ export default {
     const pagination = computed(() => store.getters['products/pagination']);
 
     watch(route, (newRoute) => {
-      store.dispatch('products/getPage', newRoute.query.page);
+      const { cat } = newRoute.params;
+      let { page } = newRoute.query;
+      if (!page) page = 1;
+      store.dispatch('products/getPage', { cat, page });
     });
 
     onUpdated(() => {

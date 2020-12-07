@@ -26,7 +26,7 @@
     </nuxt-link>
     <div class="mb-8 flex flex-col items-center">
       <h6 class="font-bold mb-2">
-        NT$ {{ product.originPrice | currency }}
+        NT$ {{ product.origin_price | currency }}
       </h6>
       <nuxt-link :to="`/product/${product.id}`" class="cursor-pointer">
         查看詳情
