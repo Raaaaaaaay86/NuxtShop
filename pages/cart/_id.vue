@@ -214,7 +214,9 @@ export default {
       };
       const response = await store.dispatch('order/create', data);
       if (!response) return false;
-      return redirect(`/order/${response.orderId}`);
+      redirect(`/order/${response.orderId}`);
+      store.dispatch('cart/getList');
+      return true;
     };
 
     return {

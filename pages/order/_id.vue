@@ -117,12 +117,12 @@
 
 <script>
 import { computed, useContext } from '@nuxtjs/composition-api';
-// import privateInfo from '@/middleware/privateInfo';
+import privateInfo from '@/middleware/privateInfo';
 import fetchOrderData from '@/middleware/fetchOrderData';
 
 export default {
   async middleware(context) {
-    // privateInfo(context);
+    privateInfo(context);
     await fetchOrderData(context, 'order/getDetail');
   },
   setup() {
