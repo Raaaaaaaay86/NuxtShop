@@ -20,5 +20,6 @@ module.exports = {
     'max-len': 'off',
     'newline-per-chained-call': 'off',
     camelcase: 'off',
+    'linebreak-style': 'off',
   },
 };
