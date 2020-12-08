@@ -45,8 +45,8 @@
                       </div>
                     </div>
                   </td>
-                  <td :class=" cart.coupon ? 'text-green-700 font-bold' : '' ">
-                    {{ cart.final_total | currency }}
+                  <td>
+                    {{ cart.product.price | currency }}
                   </td>
                 </tr>
               </template>
@@ -55,8 +55,11 @@
               <tr>
                 <td colspan="4" class="text-right">
                   總金額:
-                  <span class="font-bold text-xl">
-                    NT$ {{ totalPrice | currency }}
+                  <span
+                    class="font-bold text-xl"
+                    :class=" finalTotal < originTotal ? 'text-green-500' : '' "
+                  >
+                    NT$ {{ finalTotal | currency }}
                   </span>
                 </td>
               </tr>
@@ -166,7 +169,8 @@ export default {
     const message = ref('');
     const couponCode = ref('');
     const cartList = computed(() => store.getters['cart/list']);
-    const totalPrice = computed(() => store.getters['cart/totalPrice']);
+    const finalTotal = computed(() => store.getters['cart/finalTotal']);
+    const originTotal = computed(() => store.getters['cart/originTotal']);
     const isLoading = computed(() => store.getters.isLoading);
 
     const addCart = async (id, qty) => {
@@ -215,8 +219,9 @@ export default {
 
     return {
       couponStatus,
+      originTotal,
       createOrder,
-      totalPrice,
+      finalTotal,
       couponCode,
       couponMsg,
       useCoupon,

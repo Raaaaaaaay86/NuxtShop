@@ -3,6 +3,8 @@
 
 const state = () => ({
   list: [],
+  origin_total: 0,
+  final_total: 0,
 });
 
 const actions = {
@@ -15,10 +17,9 @@ const actions = {
     dispatch('getList');
   },
   async getList({ commit }) {
-    const ress = await this.$axios.$get('/cart');
-    console.log(ress);
-    const { data: { carts } } = ress;
+    const { origin_total, final_total, data: { carts } } = await this.$axios.$get('/cart');
     commit('SET_LIST', carts);
+    commit('SET_BILL', { origin_total, final_total });
   },
 };
 
@@ -26,18 +27,21 @@ const mutations = {
   SET_LIST(state, cartList) {
     state.list = cartList;
   },
+  SET_BILL(state, { origin_total, final_total }) {
+    state.origin_total = origin_total;
+    state.final_total = final_total;
+  },
 };
 
 const getters = {
   list(state) {
     return state.list;
   },
-  totalPrice(state) {
-    let total = 0;
-    state.list.forEach((cart) => {
-      total += cart.final_total;
-    });
-    return total;
+  finalTotal(state) {
+    return state.final_total;
+  },
+  originTotal(state) {
+    return state.origin_total;
   },
 };
 

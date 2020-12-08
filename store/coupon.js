@@ -1,8 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
 
-const apiPath = process.env.API_USER;
-
 const state = () => ({
 });
 
@@ -11,7 +9,7 @@ const actions = {
     const data = {
       code,
     };
-    const { success } = await this.$axios.$post(`/api/${apiPath}/coupon`, { data });
+    const { success } = await this.$axios.$post('/coupon', { data });
     if (!success) return Promise.resolve(success);
     return Promise.resolve(success);
   },

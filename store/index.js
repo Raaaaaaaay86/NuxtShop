@@ -4,7 +4,7 @@ const state = () => ({
 /* eslint-disable */
 const actions = {
   async nuxtServerInit({ dispatch }) {
-    dispatch('cart/getList');
+    await dispatch('cart/getList');
   },
 };
 
