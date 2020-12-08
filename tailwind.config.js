@@ -30,6 +30,7 @@ module.exports = {
         '81-3': 'repeat(3, minmax(0, 20rem))',
         '60-4': 'repeat(4, minmax(0, 15rem))',
         '60-5': 'repeat(5, minmax(0, 15rem))',
+        '81-60-60-60': 'minmax(0,20rem) minmax(0, 15rem) minmax(0, 15rem) minmax(0, 15rem)',
       },
       fontSize: {
         '8xl': ['6rem', {

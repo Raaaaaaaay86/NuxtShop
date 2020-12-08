@@ -114,7 +114,7 @@
       </div>
     </div>
     <!-- Section 7 -->
-    <div class="w-full mt-8 px-4 grid grid-cols-1 grid-rows-60-3 gap-4 lg:grid-cols-2 lg:grid-rows-81-3 lg:gap-8">
+    <div class="w-full mt-8 px-4 grid grid-cols-1 grid-rows-81-60-60-60 gap-4 lg:grid-cols-2 lg:grid-rows-81-3 lg:gap-8">
       <div style="background-color: #292f33" class="p-6 col-start-1 col-end-2 lg:row-start-2 lg:row-span-2 lg:p-12">
         <div class="h-full p-4 lg:p-16 flex flex-col items-center justify-center border border-gray-300 text-yellow-200">
           <h5 class="text-4xl font-semibold mb-4 text-center">

@@ -15,7 +15,7 @@
               {{ product.title }}
             </h1>
             <span class="py-1 px-3 text-xs text-white bg-black rounded">
-              {{ product.category }}
+              {{ product.category | category }}
             </span>
           </div>
           <p class="mt-2 mb-4">

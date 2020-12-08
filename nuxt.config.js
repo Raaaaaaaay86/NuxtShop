@@ -27,6 +27,7 @@ export default {
     '~/plugins/globalComponents.js',
     '~/plugins/validate.client.js',
     '~/plugins/currencyFilter.js',
+    '~/plugins/categoryFilter.js',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -64,8 +65,8 @@ export default {
     API_USER: 'raylin',
   },
 
-  // server: {
-  //   port: 3000,
-  //   host: '0.0.0.0',
-  // },
+  server: {
+    port: 3000,
+    host: '0.0.0.0',
+  },
 };
