@@ -6,7 +6,7 @@
           <tr>
             <th>品名</th>
             <th>數量</th>
-            <th>單價</th>
+            <th>原價</th>
           </tr>
         </thead>
         <tbody>
@@ -17,13 +17,30 @@
                 {{ info.qty }} {{ info.product.unit }}
               </td>
               <td class="text-right">
-                NT$ {{ info.final_total | currency }}
+                NT$ {{ info.product.price | currency }}
               </td>
             </tr>
           </template>
+          <tr v-if="orderDetail.final_total < orderDetail.origin_total">
+            <td colspan="3" class="text-right font-bold">
+              <span>
+                總計: NT$ {{ orderDetail.origin_total | currency }}
+              </span>
+            </td>
+          </tr>
+          <tr v-if="orderDetail.final_total < orderDetail.origin_total">
+            <td colspan="3" class="text-right font-bold">
+              折扣:
+              <span class="text-green-500">
+                NT$ {{ orderDetail.origin_total - orderDetail.final_total | currency }}
+              </span>
+            </td>
+          </tr>
           <tr id="orderTotal">
             <td colspan="3" class="text-right text-xl font-bold">
-              總金額: NT$ {{ orderDetail.total | currency }}
+              <span>
+                應付金額: NT$ {{ orderDetail.final_total | currency }}
+              </span>
             </td>
           </tr>
           <tr>
@@ -100,12 +117,12 @@
 
 <script>
 import { computed, useContext } from '@nuxtjs/composition-api';
-import privateInfo from '@/middleware/privateInfo';
+// import privateInfo from '@/middleware/privateInfo';
 import fetchOrderData from '@/middleware/fetchOrderData';
 
 export default {
   async middleware(context) {
-    privateInfo(context);
+    // privateInfo(context);
     await fetchOrderData(context, 'order/getDetail');
   },
   setup() {

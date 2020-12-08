@@ -25,13 +25,26 @@
               {{ info.qty }} {{ info.product.unit }}
             </td>
             <td class="text-right">
-              NT$ {{ info.final_total | currency }}
+              NT$ {{ info.product.price | currency }}
             </td>
           </tr>
         </template>
+        <tr>
+          <td colspan="3" class="text-right">
+            總計: NT$ {{ orderDetail.origin_total | currency }}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-right">
+            折扣:
+            <span class="text-green-500 font-semibold">
+              NT${{ orderDetail.origin_total - orderDetail.final_total | currency }}
+            </span>
+          </td>
+        </tr>
         <tr id="orderTotal">
           <td colspan="3">
-            總金額: NT$ {{ orderDetail.total | currency }}
+            應付金額: NT$ {{ orderDetail.final_total | currency }}
           </td>
         </tr>
         <tr>
@@ -72,12 +85,12 @@
 
 <script>
 import { computed, useContext } from '@nuxtjs/composition-api';
-import privateInfo from '@/middleware/privateInfo';
+// import privateInfo from '@/middleware/privateInfo';
 import fetchOrderData from '@/middleware/fetchOrderData';
 
 export default {
   async middleware(context) {
-    privateInfo(context);
+    // privateInfo(context);
     await fetchOrderData(context, 'order/getDetail');
   },
   setup() {
