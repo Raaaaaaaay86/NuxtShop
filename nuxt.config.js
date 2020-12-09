@@ -6,6 +6,9 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
+      { name: 'keywords', content: '化妝品,唇彩,指彩,腮紅,Claire\'s' },
+      { name: 'description', content: 'Claire\'s - 讓您綻放美麗與自信，致力打造親膚與實用的化妝品' },
+      { name: 'distribution', content: 'Taiwan' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
