@@ -217,7 +217,7 @@ export default defineComponent({
       {
         title: `【${CategoryFilter(product.value.category)}】${product.value.title}`,
         meta: [
-          { name: 'description', content: product.value.content },
+          { hid: 'description', name: 'description', content: product.value.content },
         ],
       },
     );
