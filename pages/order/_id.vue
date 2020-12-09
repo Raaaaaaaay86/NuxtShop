@@ -116,19 +116,29 @@
 </template>
 
 <script>
-import { computed, useContext } from '@nuxtjs/composition-api';
 import privateInfo from '@/middleware/privateInfo';
 import fetchOrderData from '@/middleware/fetchOrderData';
+import {
+  computed,
+  useContext,
+  defineComponent,
+  useMeta,
+} from '@nuxtjs/composition-api';
 
-export default {
+export default defineComponent({
   async middleware(context) {
     privateInfo(context);
     await fetchOrderData(context, 'order/getDetail');
   },
+  head: {},
   setup() {
     const { route, store, redirect } = useContext();
     const orderId = route.value.params.id;
     const orderDetail = computed(() => store.getters['order/orderDetail']);
+
+    useMeta({
+      titleTemplate: '%s - 訂單摘要',
+    });
 
     const pay = async () => {
       const success = await store.dispatch('order/pay', orderId);
@@ -141,7 +151,7 @@ export default {
       pay,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

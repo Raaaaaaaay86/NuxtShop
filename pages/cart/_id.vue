@@ -160,9 +160,12 @@ import {
   computed,
   useContext,
   ref,
+  useMeta,
+  defineComponent,
 } from '@nuxtjs/composition-api';
 
-export default {
+export default defineComponent({
+  head: {},
   setup() {
     const { store, redirect } = useContext();
     const form = reactive({});
@@ -172,6 +175,10 @@ export default {
     const finalTotal = computed(() => store.getters['cart/finalTotal']);
     const originTotal = computed(() => store.getters['cart/originTotal']);
     const isLoading = computed(() => store.getters.isLoading);
+
+    useMeta({
+      titleTemplate: '%s - 購物車',
+    });
 
     const addCart = async (id, qty) => {
       if (isLoading.value) return;
@@ -234,7 +241,7 @@ export default {
       form,
     };
   },
-};
+});
 </script>
 <style lang="scss" scoped>
   .cart-table {

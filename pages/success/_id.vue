@@ -6,7 +6,7 @@
     <h1 class="mb-4">
       已成功付款
     </h1>
-    <p class="mb-4">
+    <p class="mb-4 text-center">
       感謝您在CLAIRE's消費，以下是訂單明細<br>( 編號: {{ orderId }} )
     </p>
     <table class="w-10/12 lg:w-7/12 mb-8">
@@ -84,26 +84,34 @@
 </template>
 
 <script>
-import { computed, useContext } from '@nuxtjs/composition-api';
+import {
+  useMeta,
+  computed,
+  useContext,
+  defineComponent,
+} from '@nuxtjs/composition-api';
 import privateInfo from '@/middleware/privateInfo';
 import fetchOrderData from '@/middleware/fetchOrderData';
 
-export default {
+export default defineComponent({
   async middleware(context) {
     privateInfo(context);
     await fetchOrderData(context, 'order/getDetail');
   },
+  head: {},
   setup() {
     const { route, store } = useContext();
     const orderId = route.value.params.id;
     const orderDetail = computed(() => store.getters['order/orderDetail']);
+
+    useMeta({ titleTemplate: '%s - 付款完成' });
 
     return {
       orderDetail,
       orderId,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

@@ -37,10 +37,10 @@
 import ProductCard from '@/components/UI/client/ProductCard';
 import Pagination from '@/components/UI/client/Pagination';
 import {
-  computed,
   useContext,
-  watch,
   onUpdated,
+  computed,
+  watch,
 } from '@nuxtjs/composition-api';
 
 export default {
