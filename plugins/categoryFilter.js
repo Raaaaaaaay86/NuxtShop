@@ -14,3 +14,5 @@ const categoryFilter = (unit) => {
 };
 
 Vue.filter('category', categoryFilter);
+
+export default categoryFilter;

@@ -185,13 +185,16 @@
 
 <script>
 import ProductCard from '@/components/UI/client/ProductCard';
+import CategoryFilter from '@/plugins/categoryFilter';
 import {
+  defineComponent,
   useContext,
   computed,
   ref,
+  useMeta,
 } from '@nuxtjs/composition-api';
 
-export default {
+export default defineComponent({
   components: {
     ProductCard,
   },
@@ -202,12 +205,22 @@ export default {
     await store.dispatch('products/getRandoms');
     await store.dispatch('products/getDetail', id);
   },
+  head: {},
   setup() {
     const { store } = useContext();
     const product = computed(() => store.getters['products/detail']);
     const randoms = computed(() => store.getters['products/randoms']);
     const isLoading = computed(() => store.getters.loading);
     const qty = ref('1');
+
+    useMeta(
+      {
+        title: `【${CategoryFilter(product.value.category)}】${product.value.title}`,
+        meta: [
+          { name: 'description', content: product.value.content },
+        ],
+      },
+    );
 
     const addCart = async () => {
       if (isLoading.value) return;
@@ -229,5 +242,5 @@ export default {
       isLoading,
     };
   },
-};
+});
 </script>
