@@ -21,9 +21,11 @@
           <small class="mb-2 text-xl">
             一種歷久彌新的獨特風格。
           </small>
-          <sobutton>
-            了解更多
-          </sobutton>
+          <nuxt-link to="/products">
+            <sobutton>
+              了解更多
+            </sobutton>
+          </nuxt-link>
         </div>
       </div>
       <div class="flex lg:flex-row-reverse flex-wrap">
@@ -35,9 +37,11 @@
           <small class="mb-2 text-xl">
             追求美麗的權利 人人公平。
           </small>
-          <sobutton>
-            點我閱讀
-          </sobutton>
+          <nuxt-link to="/products">
+            <sobutton>
+              點我閱讀
+            </sobutton>
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -61,9 +65,11 @@
           </p>
           <p>質地滑順 接觸雙唇完美融合</p>
           <p>讓人愛不釋手</p>
-          <sobutton class="mt-2 w-full text-center lg:w-auto">
-            發現更多
-          </sobutton>
+          <nuxt-link to="/products">
+            <sobutton class="mt-2 w-full text-center lg:w-auto">
+              發現更多
+            </sobutton>
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -78,9 +84,11 @@
           </p>
           <p>一抹瑕疵秒神隱 遠觀近看都無懈可擊</p>
           <p>重回自信光彩</p>
-          <sobutton class="mt-2 w-full text-center lg:w-auto">
-            發現更多
-          </sobutton>
+          <nuxt-link to="/products">
+            <sobutton class="mt-2 w-full text-center lg:w-auto">
+              發現更多
+            </sobutton>
+          </nuxt-link>
         </div>
       </div>
       <div class="col-span-full lg:col-span-9">
@@ -101,9 +109,11 @@
           </p>
           <p>顏色繽紛飽滿 光亮持久</p>
           <p>展現個人魅力</p>
-          <sobutton class="mt-2 text-center w-full lg:w-auto">
-            發現更多
-          </sobutton>
+          <nuxt-link to="/products">
+            <sobutton class="mt-2 text-center w-full lg:w-auto">
+              發現更多
+            </sobutton>
+          </nuxt-link>
         </div>
       </div>
     </div>

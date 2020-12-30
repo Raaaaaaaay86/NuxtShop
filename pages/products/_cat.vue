@@ -12,9 +12,11 @@
         <p class="mb-2">
           CLAIRE'S團隊打造的新色彩美學
         </p>
-        <sbutton>
-          查看購物車
-        </sbutton>
+        <nuxt-link to="/cart">
+          <sbutton>
+            查看購物車
+          </sbutton>
+        </nuxt-link>
       </div>
     </div>
     <!-- Prodcts Area -->

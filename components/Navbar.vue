@@ -46,7 +46,7 @@
             關於我們
           </li>
         </nuxt-link>
-        <li id="cart" class="hidden lg:block px-4 py-2 relative">
+        <li id="cart" class="hidden lg:block px-4 py-2 relative cursor-pointer">
           <i class="fas fa-caret-down" />
           <i class="fas fa-shopping-cart" />
           <div id="dropdown-menu" class="hide dropdown-menu dropdown-menu--right bg-white border border-gray-400 shadow rounded">
